@@ -102,6 +102,9 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
                 
                 if let list = dict["list"] as? [Dictionary<String, AnyObject>] {
                     
+                    // empty the forecasts array before filling it to avoid repeating content when refreshing
+                    self.forecasts = [Forecast]()
+                    
                     for obj in list {
                         
                         let forecast = Forecast(weatherDict: obj)
