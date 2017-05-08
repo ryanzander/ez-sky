@@ -35,7 +35,6 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
         locationManager.startMonitoringSignificantLocationChanges()
       
         tableView.delegate = self
@@ -61,8 +60,6 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
             
             // if authorized, we get the device's location
             currentLocation = locationManager.location
-            print(currentLocation.coordinate.latitude)
-            print(currentLocation.coordinate.longitude)
             
             // we assign the lat and long to our Location singleton class to access elsewhere
             Location.sharedInstance.latitude = currentLocation.coordinate.latitude
@@ -77,7 +74,7 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
             }
             
         } else {
-            // if location was not authorized, we request again and then re-call this function to execute the 'if' statement
+            // if location was not yet authorized, we request and then re-call this function to execute the 'if' statement
             locationManager.requestWhenInUseAuthorization()
             locationAuthStatus()
         }
