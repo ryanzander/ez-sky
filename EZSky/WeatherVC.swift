@@ -45,13 +45,15 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
         refreshControl.addTarget(self, action: #selector(self.refreshData(sender:)), for: .valueChanged)
         
         currentWeather = CurrentWeather()
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationAuthStatus()
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        locationAuthStatus()
     }
     
     func locationAuthStatus() {
@@ -72,11 +74,6 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
                     self.refreshControl.endRefreshing()
                 }
             }
-            
-        } else {
-            // if location was not yet authorized, we request and then re-call this function to execute the 'if' statement
-            locationManager.requestWhenInUseAuthorization()
-            locationAuthStatus()
         }
         
     }
